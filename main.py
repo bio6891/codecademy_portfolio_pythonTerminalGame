@@ -10,16 +10,31 @@ A score out of 10 will be given.
 import pandas as pd
 import art
 
-# OK TASK: get the data
+# define variables
+DATA_FILE = 'data.csv'
+
+# DONE TASK: get the data
 # (can't find a source to download & using webscraping is out-of-scope,
 # so I'll just create the lists myself).
 # generate a seperate data.csv for that
-data = pd.read_csv('data.csv', sep=';')
+data = pd.read_csv(DATA_FILE, sep=';')
 # print(data)
 
-# TASK: create list that contains unique race names present in data.
+# DONE TASK: create list that contains unique race names present in data.
 # the user will be able to choose a race from this list.
 unique_races = list(data.race_name.unique())
+
+# TASK: get the oldest & newest year from the years present in data column year
+oldest_year = list(data.year.min())
+newest_year = list(data.year.max())
+
+
+# TASK: ask user which race it wants to play with
+def pick_race():
+    """ Function that asks the user to pick a race from a list of races"""
+    print(f"Available races: {', '.join(unique_races)}")
+    return input("Pick a race from the ones listed above: ")
+
 
 # OK TASK: initialize the game with some ASCII art
 print(art.LOGO)
@@ -34,13 +49,16 @@ GAME_IS_ON = True
 while GAME_IS_ON:
     # TASK: ask user which race it wants to play with
     print(f"Available races: {', '.join(unique_races)}")
-    race_choice = input("Pick a race from the ones listed above: ")
-    GAME_IS_ON = False
+    race_choice = pick_race()
+
+    # TASK: check if race_choice in unique_races. If not, ask again
     
     # TASK: ask user for winners of the last 10 years
-
+    answer = input(f"Pick a winner from {race_choice}")
     # TASK: check if the user's guess was correct
 
     # TASK: keep track of user score
 
     # TASK: ask user if it wants to play again (different race)
+
+    GAME_IS_ON = False
