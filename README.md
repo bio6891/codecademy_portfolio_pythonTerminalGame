@@ -1,10 +1,6 @@
 # codecademy_portfolio_pythonTerminalGame
 
-""" codecademy python course
-portfolio project
-create a python terminal game
-I'll create a cycling quiz.
-The user can choose from a predefined list of races
-for which it then has to provide the last 10 winners (in random order).
-A score out of 10 will be given.
-"""
+
+Python Terminal Game that serves as portfolio project for Codecademy Python course
+
+It is a cycling quiz in which the user has to select a race from a predefined list and then name the last 10 winners (in random order for now). The user can guess 20 times. At the end, the user will receive a score out of 10.
