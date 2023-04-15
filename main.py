@@ -25,15 +25,16 @@ data = pd.read_csv(DATA_FILE, sep=';')
 unique_races = list(data.race_name.unique())
 
 # TASK: get the oldest & newest year from the years present in data column year
-oldest_year = list(data.year.min())
-newest_year = list(data.year.max())
+oldest_year = int(data.year.min())
+newest_year = int(data.year.max())
 
 
 # TASK: ask user which race it wants to play with
 def pick_race():
     """ Function that asks the user to pick a race from a list of races"""
     print(f"Available races: {', '.join(unique_races)}")
-    return input("Pick a race from the ones listed above: ")
+    answer = input("Pick a race from the ones listed above: ")
+    return answer
 
 
 # OK TASK: initialize the game with some ASCII art
@@ -48,13 +49,15 @@ print("-------------------------------------------------------------------------
 GAME_IS_ON = True
 while GAME_IS_ON:
     # TASK: ask user which race it wants to play with
-    print(f"Available races: {', '.join(unique_races)}")
     race_choice = pick_race()
 
     # TASK: check if race_choice in unique_races. If not, ask again
-    
+    if race_choice not in unique_races:
+        print(f"{race_choice} not in list of available races. Try Again.\n")
+        race_choice = pick_race()
+
     # TASK: ask user for winners of the last 10 years
-    answer = input(f"Pick a winner from {race_choice}")
+    # answer = input(f"Pick a winner from {race_choice}")
     # TASK: check if the user's guess was correct
 
     # TASK: keep track of user score
