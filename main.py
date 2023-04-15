@@ -7,7 +7,10 @@ for which it then has to provide the last 10 winners (in random order).
 A score out of 10 will be given.
 """
 
-# TO-DO: get the data (source procycling stats)
+# TO-DO: get the data
+# (can't find a source to download & using webscraping is out-of-scope,
+# so I'll just create the lists myself).
+# generate a seperate data.csv for that
 
 # TO-DO: initialize the game with some ASCII art
 
