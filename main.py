@@ -7,16 +7,19 @@ for which it then has to provide the last 10 winners (in random order).
 A score out of 10 will be given.
 """
 
+import pandas as pd
 import art
 
 # OK TASK: get the data
 # (can't find a source to download & using webscraping is out-of-scope,
 # so I'll just create the lists myself).
 # generate a seperate data.csv for that
+data = pd.read_csv('data.csv', sep=';')
+# print(data)
 
-# TASK: initialize the game with some ASCII art
-print(art.LOGO)
-print("Welcome to the Cycling Quiz!")
+# OK TASK: initialize the game with some ASCII art
+# print(art.LOGO)
+# print("Welcome to the Cycling Quiz!")
 
 # TASK: ask user which race it wants to play with
 
