@@ -14,9 +14,9 @@ import art
 DATA_FILE = 'data.csv'
 
 # get the data
-# (can't find a source to download & using webscraping is out-of-scope,
+# (can't find a source to download & using web scraping is out-of-scope,
 # so I'll just create the lists myself).
-# generate a seperate data.csv for that
+# generate a separate data.csv for that
 data = pd.read_csv(DATA_FILE, sep=';')
 # print(data)
 
