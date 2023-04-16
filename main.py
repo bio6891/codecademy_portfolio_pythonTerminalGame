@@ -13,12 +13,10 @@ import art
 # define variables
 DATA_FILE = 'data.csv'
 
-# get the data
-# (can't find a source to download & using web scraping is out-of-scope,
+# get the data (can't find a source to download & using web scraping is out-of-scope,
 # so I'll just create the lists myself).
 # generate a separate data.csv for that
 data = pd.read_csv(DATA_FILE, sep=';')
-# print(data)
 
 # create list that contains unique race names present in data.
 # the user will be able to choose a race from this list.
