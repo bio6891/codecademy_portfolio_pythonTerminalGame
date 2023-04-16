@@ -33,13 +33,22 @@ def pick_race():
     """ Function that asks the user to pick a race from a list of races"""
     print(f"Available races: {', '.join(unique_races)}")
     answer = str(input("Pick a race from the ones listed above: ")).title()
-    return answer
+    if not check_exit(answer):
+        return answer
 
 
 def get_unique_winners(race):
     """ Function that will get a list of the unique winners for the selected race """
     data_selected_race = list(data[data.race_name == race].rider_last_name.unique())
     return data_selected_race
+
+
+def check_exit(answer):
+    """ Function that will check if the user has typed 'Exit'. This will end the game. """
+    if answer == "Exit":
+        print("Thanks for playing! Bye!")
+        quit()
+    return False
 
 
 # initialize the game with some ASCII art
@@ -73,18 +82,22 @@ while GAME_IS_ON:
     while USER_PICKS_LEFT > 0 and len(picked_winners) < max_score:
         print(f"\nYour current score: {USER_SCORE}/{max_score}.\nYou have {USER_PICKS_LEFT} picks left.")
         winner_pick = str(input(f"Pick a winner from {race_pick} between {oldest_year} & {newest_year}: ")).title()
-        if winner_pick in picked_winners:
-            print(f"\nYou've picked '{winner_pick}' already. Try Again.\n")
-        elif winner_pick in race_unique_winners:
-            USER_SCORE += 1
-            picked_winners.append(winner_pick)
-            print("\nCorrect! Next guess.\n")
-            USER_PICKS_LEFT -= 1
-        else:
-            print("\nWrong! Try Again.\n")
-            USER_PICKS_LEFT -= 1
-    GAME_IS_ON = False
-
-# TODO: take into account that 1 rider could have won multiple time in the past ten 10 years
-# TODO: end game if user has guessed all winners
-# TODO: end game is user input equals 'exit'
+        if not check_exit(winner_pick):
+            # check if user has guessed this rider already
+            if winner_pick in picked_winners:
+                print(f"\nYou've picked '{winner_pick}' already. Try Again.\n")
+            # check if the picked rider is indeed a winner
+            elif winner_pick in race_unique_winners:
+                USER_SCORE += 1
+                picked_winners.append(winner_pick)
+                print("\nCorrect! Next guess.\n")
+                USER_PICKS_LEFT -= 1
+            else:
+                print("\nWrong! Try Again.\n")
+                USER_PICKS_LEFT -= 1
+    if USER_SCORE == max_score:
+        print(f"You've guessed all {max_score} winners of {race_pick}! Congrats! Game will end.")
+        GAME_IS_ON = False
+    if USER_PICKS_LEFT == 0:
+        print(f"You're out of guesses. Total score = {USER_SCORE}. Game will end.")
+        GAME_IS_ON = False
