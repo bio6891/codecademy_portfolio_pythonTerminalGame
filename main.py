@@ -29,7 +29,6 @@ oldest_year = int(data.year.min())
 newest_year = int(data.year.max())
 
 
-# ask user which race it wants to play with
 def pick_race():
     """ Function that asks the user to pick a race from a list of races"""
     print(f"Available races: {', '.join(unique_races)}")
@@ -37,10 +36,10 @@ def pick_race():
     return answer
 
 
-def check_winner(name, race):
-    """ Function that will perform checks on the name of the winner the user has picked """
-    data_selected_race = data[data.race_name == race]
-    return name in list(data_selected_race.rider_last_name)
+def get_unique_winners(race):
+    """ Function that will get a list of the unique winners for the selected race """
+    data_selected_race = list(data[data.race_name == race].rider_last_name.unique())
+    return data_selected_race
 
 
 # initialize the game with some ASCII art
@@ -62,16 +61,21 @@ while GAME_IS_ON:
         print(f"{race_pick} not in list of available races. Try Again.\n")
         race_pick = pick_race()
 
+    # get the number of unique winners for race_pick. Set this to max_score. Let the user know how many many winner it'll has get to get a max_score
+    race_unique_winners = get_unique_winners(race_pick)
+    max_score = len(race_unique_winners)
+    print(f"\nThere are {max_score} unique winners for this race the last 10 years.")
+
     # ask user to pick winner and perform checks
     USER_PICKS_LEFT = 20
     picked_winners = []
     USER_SCORE = 0
-    while USER_PICKS_LEFT > 0 and len(picked_winners) < 10:
-        print(f"\nYour current score: {USER_SCORE}/10.\nYou have {USER_PICKS_LEFT} picks left.")
+    while USER_PICKS_LEFT > 0 and len(picked_winners) < max_score:
+        print(f"\nYour current score: {USER_SCORE}/{max_score}.\nYou have {USER_PICKS_LEFT} picks left.")
         winner_pick = str(input(f"Pick a winner from {race_pick} between {oldest_year} & {newest_year}: ")).title()
         if winner_pick in picked_winners:
             print(f"\nYou've picked '{winner_pick}' already. Try Again.\n")
-        elif check_winner(winner_pick, race_pick):
+        elif winner_pick in race_unique_winners:
             USER_SCORE += 1
             picked_winners.append(winner_pick)
             print("\nCorrect! Next guess.\n")
@@ -82,6 +86,5 @@ while GAME_IS_ON:
     GAME_IS_ON = False
 
 # TODO: take into account that 1 rider could have won multiple time in the past ten 10 years
-# TODO: take into account that due to Covid19 Paris Roubaix didn't have a winner in 2020 ...
 # TODO: end game if user has guessed all winners
 # TODO: end game is user input equals 'exit'
